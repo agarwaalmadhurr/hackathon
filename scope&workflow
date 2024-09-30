@@ -1,0 +1,51 @@
+CUSTOMER FEEDBACK ANALYSIS
+
+## PROBLEM STATEMENT ##
+Develop a solution to analyze unstructured customer feedback from various channels (e.g., emails, social media, surveys) to extract key insights, sentiment, and recurring issues. 
+The goal is to transform this feedback into structured data that can inform service improvements and product offerings.
+
+## ACCEPTANCE CRITERIA ##
+Extract sentiment (positive, negative, neutral) from customer feedback.
+Identify common themes or issues mentioned in the feedback.
+Generate actionable insights for improving services.
+
+## STEPS ##
+
+STEP1a: DEFINE DATA SOURCES (Channels): 
+Social media (e.g., Twitter, Facebook)
+Customer support emails.
+Surveys and feedback forms.
+Online reviews.
+
+STEP1b: DEFINE SCOPE (DATA SOURCES) FOR HACKATHON:
+TBC
+
+STEP2: DATA COLLECTION
+APIs: Use APIs for social media platforms (e.g., Twitter API) to fetch feedback.
+Web Scraping: Use tools like BeautifulSoup or Scrapy for gathering data from websites.
+Email Parsing: Use libraries like imaplib to extract data from emails.
+
+STEP3: DATA CLEANSING
+Remove Noise: duplicates, special characters, whitespace
+Normalize text: lowercase
+Tokenization: Split text into individual words or phrases and removal of stop words, if necessary.
+
+STEP4: DATA STORAGE INTO STRUCTURED (PARQUET) FORMAT FOR FURTHER ANALYSIS
+Parquet is a structured data format. It is a columnar storage file format designed for efficient data storage and retrieval, especially with large datasets.
+
+STEP5: ANALYSIS ON DATA
+(a) Sentiment Analysis:
+Pre-trained Models: Use libraries like VADER (for social media sentiment) or TextBlob for general sentiment analysis.
+Machine Learning Models: Consider using NLP libraries like spaCy or Transformers for more advanced analysis.
+(b) Theme Extraction analysis:
+Use techniques like Latent Dirichlet Allocation (LDA) to identify common themes.
+Libraries like Gensim or sklearn can help with this.
+
+## FUTURE SCOPE ##
+F1. VISUALIZING AND REPORTING (CAN BE INCLUDED IN HACK IF TIME PERMITS!)
+Use libraries like Matplotlib, Seaborn, or Plotly to visualize insights (e.g., sentiment distribution, common themes).
+Dashboards: Consider creating an interactive dashboard using tools like Dash or Tableau.
+
+F2. FINE TUNING
+F3. ADD OTHER DATA SOURCES
+F4. DEFINE MORE INSIGHTS
