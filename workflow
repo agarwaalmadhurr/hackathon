@@ -5,19 +5,17 @@ Develop a solution to analyze unstructured customer feedback from various channe
 The goal is to transform this feedback into structured data that can inform service improvements and product offerings.
 
 ## ACCEPTANCE CRITERIA ##
-Extract sentiment (positive, negative, neutral) from customer feedback.
-Identify common themes or issues mentioned in the feedback.
+Extract sentiment (positive, negative, neutral) from customer comments.
+Identify common themes or issues mentioned in the feedback (TBC)
 Generate actionable insights for improving services.
 
 ## STEPS ##
 
-STEP1a: DEFINE DATA SOURCES (Channels): 
+STEP1: DEFINE DATA SOURCES (Channels): 
 Social media comments (e.g., Twitter, Facebook)
 Survey responses
 Call Transcripts
-
-STEP1b: DEFINE SCOPE (DATA SOURCES) FOR HACKATHON:
-Social media comments
+FOR THIS HACKATHON THE SCOPE IS TWITTER
 https://www.kaggle.com/datasets/slythe/twitter-scrape-of-the-top-5-banks-in-south-africa?select=full_2021.csv
 
 STEP2: DATA INGESTION
@@ -28,8 +26,7 @@ Use tools like BeautifulSoup or Scrapy for gathering data from websites.
 Storage: Amazon S3: Store your raw unstructured data (e.g., text files, PDFs, audio files) in S3 buckets.
 Amazon Kinesis: For real-time streaming data like live feedback from social media or customer service chatbots.
 
-STEP3: DATA PREPROCESSING
-Data Cleansing:
+STEP3: DATA PREPROCESSING AND CLEANISNG
 Convert all feedback into a consistent text format:
 Remove Noise: duplicates, special characters, whitespace
 Normalize text: lowercase
