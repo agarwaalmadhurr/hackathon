@@ -1,0 +1,72 @@
+#Upload Feedback Data to S3:
+aws s3 cp feedback_raw.csv s3://your-bucket-name/raw-data/feedback_raw.csv
+
+
+#Preprocess the Data
+import pandas as pd
+import re
+
+df = pd.read_csv('feedback_raw.csv')
+
+def preprocess_text(text):
+    text = re.sub(r'[^\w\s]', '', text)  # Remove special characters
+    return text.lower()  # Convert to lowercase
+
+df['Cleaned_Feedback'] = df['Feedback_Text'].apply(preprocess_text)
+print(df.head())
+
+#Analyze the Feedback with Amazon Bedrock:
+import boto3
+client = boto3.client('bedrock-runtime')
+
+# Function to invoke Bedrock sentiment analysis on cleaned feedback
+def analyze_sentiment(feedback_text):
+    response = client.invoke_model(
+        modelId='your-model-id',  # Replace with actual Bedrock model ID
+        body={"text": feedback_text},
+    )
+    sentiment_data = response['body']
+    return sentiment_data['sentiment'], sentiment_data['sentiment_score']
+
+# Analyze sentiment for each feedback
+df['Sentiment'], df['Sentiment_Score'] = zip(*df['Cleaned_Feedback'].apply(analyze_sentiment))
+
+# Display data with sentiment analysis
+print(df.head())
+
+
+# Save the processed data to Parquet format
+df.to_parquet('feedback_structured.parquet', compression='snappy')
+
+# Upload the Parquet file to S3
+import boto3
+s3 = boto3.client('s3')
+s3.upload_file('feedback_structured.parquet', 'your-bucket-name', 'structured-data/feedback_structured.parquet')
+
+# Query Parquet Data with Amazon Athena:
+CREATE EXTERNAL TABLE IF NOT EXISTS customer_feedback (
+    Feedback_ID INT,
+    Feedback_Text STRING,
+    Cleaned_Feedback STRING,
+    Sentiment STRING,
+    Sentiment_Score FLOAT
+)
+STORED AS PARQUET
+LOCATION 's3://your-bucket-name/structured-data/'
+TBLPROPERTIES ('parquet.compress'='SNAPPY');
+
+SELECT Feedback_Text, Sentiment, Sentiment_Score
+FROM customer_feedback
+WHERE Sentiment = 'Negative';
+
+SELECT AVG(Sentiment_Score) AS avg_sentiment
+FROM customer_feedback;
+
+#Visualize Data in QuickSight 
+
+
+
+
+
+
+
